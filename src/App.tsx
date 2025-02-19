@@ -1,39 +1,58 @@
 import React, { useState } from 'react';
-import { 
-  Menu, 
-  X, 
-  Star, 
-  ArrowRight, 
-  ChevronDown, 
-  Home, 
-  Check, 
-  Shield, 
-  Clock, 
-  Heart, 
-  MessageSquare, 
-  Building2, 
-  Trees, 
-  Factory, 
-  MapPin, 
-  Users2, 
-  LayoutGrid, 
-  CheckCircle, 
-  ClipboardCheck, 
-  Quote, 
-  Settings2, 
-  HeartHandshake, 
-  Phone, 
-  Mail, 
-  Facebook, 
-  Instagram, 
-  Linkedin 
+import { Link, Routes, Route } from 'react-router-dom';
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Home,
+  Briefcase,
+  Users,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Star,
+  Shield,
+  CheckCircle,
+  ArrowRight,
+  Target,
+  Eye,
+  Heart,
+  MessageSquare,
+  Building2,
+  Trees,
+  Factory,
+  Users2,
+  LayoutGrid,
+  ClipboardCheck,
+  Quote,
+  Settings2,
+  HeartHandshake,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Check,
+  UserPlus
 } from 'lucide-react';
+import CleaningServices from './pages/CleaningServices';
+import OutdoorServices from './pages/OutdoorServices';
+import About from './pages/About';
 
 function App() {
   // State for dropdowns and mobile menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cleaningDropdown, setCleaningDropdown] = useState(false);
   const [outdoorDropdown, setOutdoorDropdown] = useState(false);
+
+  // Smooth scroll function
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    // Close mobile menu if open
+    setMobileMenuOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -42,7 +61,7 @@ function App() {
         <nav className="max-w-7xl mx-auto px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a href="/" className="flex-shrink-0">
+            <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }} className="flex-shrink-0">
               <img 
                 src="/logo.png" 
                 alt="APEX Property Solutions" 
@@ -52,12 +71,20 @@ function App() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex lg:items-center lg:gap-8">
-              <a href="/" className="text-gray-700 hover:text-gray-900 font-medium">
+              <Link
+                to="/"
+                onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}
+                className="text-gray-700 hover:text-gray-900 font-medium"
+              >
                 Home
-              </a>
-              <a href="/about" className="text-gray-700 hover:text-gray-900 font-medium">
+              </Link>
+              <Link
+                to="/about"
+                onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+                className="text-gray-700 hover:text-gray-900 font-medium"
+              >
                 About Us
-              </a>
+              </Link>
               
               {/* Cleaning Services Dropdown */}
               <div className="relative">
@@ -75,18 +102,18 @@ function App() {
                     onMouseEnter={() => setCleaningDropdown(true)}
                     onMouseLeave={() => setCleaningDropdown(false)}
                   >
-                    <a 
-                      href="/residential-cleaning" 
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+                    <Link
+                      to="/residential-cleaning"
+                      className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg"
                     >
                       Residential Cleaning
-                    </a>
-                    <a 
-                      href="/commercial-cleaning" 
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+                    </Link>
+                    <Link
+                      to="/commercial-cleaning"
+                      className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg"
                     >
                       Commercial Cleaning
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -107,34 +134,38 @@ function App() {
                     onMouseEnter={() => setOutdoorDropdown(true)}
                     onMouseLeave={() => setOutdoorDropdown(false)}
                   >
-                    <a 
-                      href="/residential-outdoor" 
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+                    <Link
+                      to="/residential-outdoor"
+                      className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg"
                     >
                       Residential Outdoor Care
-                    </a>
-                    <a 
-                      href="/commercial-outdoor" 
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
+                    </Link>
+                    <Link
+                      to="/commercial-outdoor"
+                      className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg"
                     >
                       Commercial Outdoor Care
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
 
-              <a href="/contact" className="text-gray-700 hover:text-gray-900 font-medium">
+              <Link
+                to="/contact"
+                onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}
+                className="text-gray-700 hover:text-gray-900 font-medium"
+              >
                 Contact Us
-              </a>
+              </Link>
 
               {/* CTA Button */}
-              <a 
-                href="/quote" 
+              <Link 
+                to="/quote" 
                 className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-all"
               >
                 Get a Free Quote
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -154,12 +185,20 @@ function App() {
           {mobileMenuOpen && (
             <div className="lg:hidden py-4 border-t border-gray-100">
               <div className="flex flex-col gap-4">
-                <a href="/" className="text-gray-700 hover:text-gray-900 font-medium">
+                <Link
+                  to="/"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
+                >
                   Home
-                </a>
-                <a href="/about" className="text-gray-700 hover:text-gray-900 font-medium">
+                </Link>
+                <Link
+                  to="/about"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
+                >
                   About Us
-                </a>
+                </Link>
                 
                 {/* Mobile Cleaning Services */}
                 <div>
@@ -172,12 +211,12 @@ function App() {
                   </button>
                   {cleaningDropdown && (
                     <div className="ml-4 mt-2 flex flex-col gap-2">
-                      <a href="/residential-cleaning" className="text-gray-600 hover:text-gray-900">
+                      <Link to="/residential-cleaning" className="text-gray-600 hover:text-gray-900">
                         Residential Cleaning
-                      </a>
-                      <a href="/commercial-cleaning" className="text-gray-600 hover:text-gray-900">
+                      </Link>
+                      <Link to="/commercial-cleaning" className="text-gray-600 hover:text-gray-900">
                         Commercial Cleaning
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -193,28 +232,32 @@ function App() {
                   </button>
                   {outdoorDropdown && (
                     <div className="ml-4 mt-2 flex flex-col gap-2">
-                      <a href="/residential-outdoor" className="text-gray-600 hover:text-gray-900">
+                      <Link to="/residential-outdoor" className="text-gray-600 hover:text-gray-900">
                         Residential Outdoor Care
-                      </a>
-                      <a href="/commercial-outdoor" className="text-gray-600 hover:text-gray-900">
+                      </Link>
+                      <Link to="/commercial-outdoor" className="text-gray-600 hover:text-gray-900">
                         Commercial Outdoor Care
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>
 
-                <a href="/contact" className="text-gray-700 hover:text-gray-900 font-medium">
+                <Link
+                  to="/contact"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
+                >
                   Contact Us
-                </a>
+                </Link>
 
                 {/* Mobile CTA */}
-                <a 
-                  href="/quote" 
+                <Link 
+                  to="/quote" 
                   className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-all"
                 >
                   Get a Free Quote
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             </div>
           )}
@@ -224,7 +267,7 @@ function App() {
       <div className="h-20"></div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] w-full overflow-hidden">
+      <section id="hero" className="relative min-h-[90vh] w-full overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img 
@@ -274,22 +317,22 @@ function App() {
 
                 {/* CTAs */}
                 <div className="mt-8 flex flex-wrap gap-6 items-center">
-                  <a 
-                    href="/assessment" 
+                  <Link 
+                    to="/assessment" 
                     className="group relative inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-lg font-medium overflow-hidden transition-all hover:pr-12"
                   >
                     <span className="relative z-10">Book Assessment</span>
                     <ArrowRight className="w-5 h-5 absolute right-4 opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-20px] group-hover:translate-x-0" />
-                  </a>
-                  <a 
-                    href="/services" 
+                  </Link>
+                  <Link 
+                    to="/services" 
                     className="group inline-flex items-center gap-2 text-white font-medium transition-all"
                   >
                     <span className="border-b border-transparent group-hover:border-white pb-1">
                       View Services
                     </span>
                     <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Stats */}
@@ -319,87 +362,240 @@ function App() {
         </div>
       </section>
 
-      {/* About Section - The APEX Standard */}
-      <section className="relative py-24 bg-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,#f8f8f8,transparent_70%)]"></div>
+      {/* About Section */}
+      <section id="about" className="relative py-32 overflow-hidden">
+        {/* Enhanced Background Elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#f8f8f8,transparent_70%)]"></div>
+        <div className="absolute right-0 top-1/4 w-96 h-96 bg-gradient-to-br from-gray-100 to-white rounded-full blur-3xl opacity-70 -z-10"></div>
+        <div className="absolute left-0 bottom-1/4 w-96 h-96 bg-gradient-to-br from-gray-100 to-white rounded-full blur-3xl opacity-70 -z-10"></div>
+        
+        {/* Decorative Pattern */}
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-[0.02]"></div>
         
         <div className="max-w-7xl mx-auto px-8 relative">
+          {/* Main Content with New Layout */}
+          <div className="flex flex-col lg:flex-row gap-20 items-stretch mb-24">
+            {/* Left Column: Image */}
+            <div className="lg:w-1/2">
+              <div className="sticky top-32">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
+                  <img 
+                    src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                    alt="APEX Property Solutions Team" 
+                    className="w-full h-[600px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0"></div>
+                  
+                  {/* Experience Badge */}
+                  <div className="absolute top-8 right-8 bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+                    <div className="text-3xl font-bold text-gray-900">15+</div>
+                    <div className="text-sm text-gray-600">Years Experience</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Content */}
+            <div className="lg:w-1/2 flex flex-col">
+              <div className="flex-1">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-px w-16 bg-gray-900"></div>
+                  <span className="text-sm uppercase tracking-wider text-gray-600 font-medium">About Us</span>
+                </div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+                  The APEX Standard in Property Care
+                </h2>
+                <div className="prose prose-lg text-gray-600">
+                  <p className="text-xl leading-relaxed">
+                    The APEX Standard is built on family values - treating every property as if it were our own and every client as part of the APEX family. It's our commitment to delivering property care with personal attention, trust, and exceptional quality.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mission & Vision with New Layout */}
+          <div className="grid lg:grid-cols-12 gap-8">
+            {/* Mission Statement - Wider Column */}
+            <div className="lg:col-span-7">
+              <div className="bg-white rounded-2xl h-full shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                <div className="relative h-full flex flex-col p-12">
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className="w-16 h-16 bg-gray-900 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                      <Target className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-gray-900">Our Mission</h3>
+                  </div>
+                  <div className="prose prose-lg text-gray-600 flex-1 flex flex-col justify-center">
+                    <p className="leading-relaxed text-lg">
+                      Our mission is to deliver exceptional property care through family values and professional excellence. We treat every property as our own and every client as family, setting the standard for comprehensive maintenance solutions that build lasting relationships and enhance property value.
+                    </p>
+                    <p className="leading-relaxed mt-6 text-lg">
+                      Through The APEX Standard, we combine traditional family values with modern expertise to create a legacy of trust, quality, and superior service across NSW.
+                    </p>
+                  </div>
+                  {/* Decorative Corner */}
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-gray-50 rounded-bl-[120px] -z-10 transform group-hover:scale-110 transition-transform duration-300"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Vision Statement - Narrower Column */}
+            <div className="lg:col-span-5">
+              <div className="bg-white rounded-2xl h-full shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                <div className="relative h-full flex flex-col p-12">
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className="w-16 h-16 bg-gray-900 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                      <Eye className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-gray-900">Our Vision</h3>
+                  </div>
+                  <div className="prose prose-lg text-gray-600 flex-1 flex flex-col justify-center">
+                    <blockquote className="border-l-4 border-gray-900 pl-6 mb-6 italic text-lg">
+                      To be NSW's most trusted family property solutions provider, setting The APEX Standard through comprehensive, innovative, and sustainable property care services that enhance the value and longevity of every property we touch, just as we would our own.
+                    </blockquote>
+                    <p className="leading-relaxed text-lg">
+                      Our vision is to be the leading family-owned property solutions provider in New South Wales, setting The APEX Standard through our comprehensive, innovative, and sustainable approach to property care. We aim to redefine industry excellence by treating every property as our own, combining traditional family values with modern expertise and technology. Our ultimate goal is to enhance the value and longevity of every property we serve, building lasting relationships that benefit our clients and strengthen our community.
+                    </p>
+                  </div>
+                  {/* Decorative Corner */}
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-gray-50 rounded-bl-[120px] -z-10 transform group-hover:scale-110 transition-transform duration-300"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* APEX Standard Pillars Section */}
+      <section className="py-32 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-8">
           {/* Section Header */}
-          <div className="max-w-3xl mx-auto text-center mb-20">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              What is The APEX Standard?
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-16 bg-gray-900"></div>
+              <span className="text-sm uppercase tracking-wider text-gray-600 font-medium">Our Foundation</span>
+              <div className="h-px w-16 bg-gray-900"></div>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              The APEX Standard Pillars
             </h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Built on core family values, we treat every property as our own and every client as part of the APEX family. 
-              Our commitment is to deliver property care with personal attention, trust, and exceptional quality across NSW.
-            </p>
           </div>
 
-          {/* Four Pillars Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Family Values */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white rounded-2xl -z-10"></div>
-              <div className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gray-900 text-white">
-                <Heart className="w-7 h-7" />
+          {/* Pillars Grid */}
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Family Values Pillar */}
+            <div className="group bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="mb-8">
+                <div className="w-16 h-16 bg-gray-900 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Family Values</h3>
+                <ul className="space-y-4 text-gray-600">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Treating properties like our own</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Building lasting relationships</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Personal attention to detail</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Trust and integrity</span>
+                  </li>
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Family Values
-              </h3>
-              <p className="text-gray-600">
-                Personalized care & lasting relationships
-              </p>
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-gray-900 to-gray-700 rounded-b-2xl transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform"></div>
             </div>
 
-            {/* Professional Care */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white rounded-2xl -z-10"></div>
-              <div className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gray-900 text-white">
-                <Shield className="w-7 h-7" />
+            {/* Professional Care Pillar */}
+            <div className="group bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="mb-8">
+                <div className="w-16 h-16 bg-gray-900 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  <Briefcase className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Professional Care</h3>
+                <ul className="space-y-4 text-gray-600">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Family-led service teams</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Pride in our work</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Consistent quality</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Attention to the little things</span>
+                  </li>
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Professional Care
-              </h3>
-              <p className="text-gray-600">
-                Expert service with consistent quality
-              </p>
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-gray-900 to-gray-700 rounded-b-2xl transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform"></div>
             </div>
 
-            {/* Personal Touch */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white rounded-2xl -z-10"></div>
-              <div className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gray-900 text-white">
-                <MessageSquare className="w-7 h-7" />
+            {/* Personal Touch Pillar */}
+            <div className="group bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="mb-8">
+                <div className="w-16 h-16 bg-gray-900 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  <UserPlus className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Personal Touch</h3>
+                <ul className="space-y-4 text-gray-600">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Direct communication</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Understanding your needs</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Flexible solutions</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Being there when you need us</span>
+                  </li>
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Personal Touch
-              </h3>
-              <p className="text-gray-600">
-                Direct communication & tailored solutions
-              </p>
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-gray-900 to-gray-700 rounded-b-2xl transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform"></div>
             </div>
 
-            {/* Long-Term Commitment */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white rounded-2xl -z-10"></div>
-              <div className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gray-900 text-white">
-                <Clock className="w-7 h-7" />
+            {/* Long-term Commitment Pillar */}
+            <div className="group bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="mb-8">
+                <div className="w-16 h-16 bg-gray-900 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Long-term Commitment</h3>
+                <ul className="space-y-4 text-gray-600">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Building lasting relationships</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Regular property care</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Proactive maintenance</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-gray-900 mt-1 flex-shrink-0" />
+                    <span>Growing together</span>
+                  </li>
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Long-Term Commitment
-              </h3>
-              <p className="text-gray-600">
-                Ongoing maintenance & proactive care
-              </p>
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-gray-900 to-gray-700 rounded-b-2xl transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform"></div>
             </div>
           </div>
-
-          {/* Bottom Accent */}
-          <div className="absolute left-1/2 bottom-0 w-24 h-24 -translate-x-1/2 translate-y-1/2 bg-gradient-to-br from-gray-100 to-gray-50 rounded-full blur-2xl opacity-50"></div>
         </div>
       </section>
 
@@ -445,10 +641,10 @@ function App() {
                   Thorough, tailored cleaning solutions for NSW homes. We bring the APEX standard of excellence to every corner of your living space.
                 </p>
                 <div className="flex items-center justify-between">
-                  <a href="/residential-cleaning" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
+                  <Link to="/residential-cleaning" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </Link>
                   <span className="text-sm text-gray-500">From $120/visit</span>
                 </div>
               </div>
@@ -476,10 +672,10 @@ function App() {
                   Professional cleaning solutions for commercial properties, focusing on quality, efficiency, and maintaining a pristine business environment.
                 </p>
                 <div className="flex items-center justify-between">
-                  <a href="/commercial-cleaning" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
+                  <Link to="/commercial-cleaning" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </Link>
                   <span className="text-sm text-gray-500">Custom Quotes</span>
                 </div>
               </div>
@@ -507,10 +703,10 @@ function App() {
                   Complete outdoor maintenance including lawn care, garden maintenance, and property upkeep for residential properties across NSW.
                 </p>
                 <div className="flex items-center justify-between">
-                  <a href="/residential-outdoor" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
+                  <Link to="/residential-outdoor" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </Link>
                   <span className="text-sm text-gray-500">From $150/visit</span>
                 </div>
               </div>
@@ -538,10 +734,10 @@ function App() {
                   Expert outdoor maintenance for commercial properties, ensuring safety, curb appeal, and professional presentation year-round.
                 </p>
                 <div className="flex items-center justify-between">
-                  <a href="/commercial-outdoor" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
+                  <Link to="/commercial-outdoor" className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors">
                     Learn More
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </Link>
                   <span className="text-sm text-gray-500">Custom Quotes</span>
                 </div>
               </div>
@@ -550,16 +746,16 @@ function App() {
 
           {/* Bottom CTA */}
           <div className="mt-16 text-center">
-            <a href="/contact" className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition-all">
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition-all">
               Get a Customized Quote
               <ArrowRight className="w-5 h-5" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="relative py-32 overflow-hidden">
+      <section id="why-choose-us" className="relative py-32 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gray-50"></div>
         <div className="absolute right-0 top-1/3 w-96 h-96 bg-gradient-to-br from-gray-100 to-white rounded-full blur-3xl"></div>
@@ -640,7 +836,7 @@ function App() {
                 {/* Overlapping Image 2 */}
                 <div className="absolute right-12 bottom-0 w-1/2 h-56 rounded-xl overflow-hidden shadow-2xl">
                   <img 
-                    src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
+                    src="https://images.unsplash.com/photo-1604014237800-1c9102c25118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
                     alt="Property Excellence" 
                     className="w-full h-full object-cover"
                   />
@@ -656,7 +852,7 @@ function App() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="relative py-32 bg-gray-50 overflow-hidden">
+      <section id="testimonials" className="relative py-32 bg-gray-50 overflow-hidden">
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#f8f8f8,transparent_70%)]"></div>
         <div className="absolute right-0 top-1/4 w-96 h-96 bg-gradient-to-br from-gray-100 to-white rounded-full blur-3xl opacity-70 -z-10"></div>
@@ -798,7 +994,7 @@ function App() {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative py-32 overflow-hidden">
+      <section id="how-it-works" className="relative py-32 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,#f8f8f8,transparent_70%)]"></div>
         <div className="absolute right-0 top-1/3 w-64 h-64 bg-gradient-to-br from-gray-100 to-white rounded-full blur-3xl opacity-70 -z-10"></div>
@@ -896,13 +1092,13 @@ function App() {
 
           {/* Bottom CTA */}
           <div className="mt-20 text-center">
-            <a 
-              href="/get-started" 
+            <Link 
+              to="/get-started" 
               className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition-all group"
             >
               Start Your Free Assessment
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -931,29 +1127,24 @@ function App() {
                   Join hundreds of satisfied property owners who trust APEX for their maintenance needs.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="#contact"
+                  <Link
+                    to="#contact"
                     className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white transition-all duration-300"
                   >
                     Get Started Today
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
-                  <a
-                    href="#services"
+                  </Link>
+                  <Link
+                    to="#services"
                     className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white transition-all duration-300"
                   >
                     View Services
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* About Section (kept for context) */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-32">
-        {/* About section content... */}
       </section>
 
       {/* Footer */}
@@ -963,24 +1154,24 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Brand Column */}
             <div className="space-y-6">
-              <a href="/" className="block">
+              <Link to="/" className="block">
                 <img 
                   src="/logo-white.png" 
                   alt="APEX Property Solutions" 
                   className="h-12 w-auto"
                 />
-              </a>
+              </Link>
               <p className="text-gray-400 text-sm leading-relaxed">
                 NSW's leading property maintenance service, delivering excellence through our comprehensive solutions and family-owned care.
               </p>
               {/* Secondary CTA */}
-              <a 
-                href="/quote" 
+              <Link 
+                to="/quote" 
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-lg font-medium transition-all group"
               >
                 Get a Free Quote
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </div>
 
             {/* Quick Links */}
@@ -988,19 +1179,19 @@ function App() {
               <h3 className="text-white font-semibold text-lg mb-6">Quick Links</h3>
               <ul className="space-y-4">
                 <li>
-                  <a href="/" className="hover:text-white transition-colors">Home</a>
+                  <Link to="/" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }} className="hover:text-white transition-colors">Home</Link>
                 </li>
                 <li>
-                  <a href="/about" className="hover:text-white transition-colors">About Us</a>
+                  <Link to="/about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }} className="hover:text-white transition-colors">About Us</Link>
                 </li>
                 <li>
-                  <a href="/cleaning-services" className="hover:text-white transition-colors">Cleaning Services</a>
+                  <Link to="/cleaning-services" className="hover:text-white transition-colors">Cleaning Services</Link>
                 </li>
                 <li>
-                  <a href="/outdoor-care" className="hover:text-white transition-colors">Outdoor Care Services</a>
+                  <Link to="/outdoor-care" className="hover:text-white transition-colors">Outdoor Care Services</Link>
                 </li>
                 <li>
-                  <a href="/contact" className="hover:text-white transition-colors">Contact Us</a>
+                  <Link to="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} className="hover:text-white transition-colors">Contact Us</Link>
                 </li>
               </ul>
             </div>
@@ -1010,16 +1201,16 @@ function App() {
               <h3 className="text-white font-semibold text-lg mb-6">Our Services</h3>
               <ul className="space-y-4">
                 <li>
-                  <a href="/residential-cleaning" className="hover:text-white transition-colors">Residential Cleaning</a>
+                  <Link to="/residential-cleaning" className="hover:text-white transition-colors">Residential Cleaning</Link>
                 </li>
                 <li>
-                  <a href="/commercial-cleaning" className="hover:text-white transition-colors">Commercial Cleaning</a>
+                  <Link to="/commercial-cleaning" className="hover:text-white transition-colors">Commercial Cleaning</Link>
                 </li>
                 <li>
-                  <a href="/residential-outdoor" className="hover:text-white transition-colors">Residential Outdoor Care</a>
+                  <Link to="/residential-outdoor" className="hover:text-white transition-colors">Residential Outdoor Care</Link>
                 </li>
                 <li>
-                  <a href="/commercial-outdoor" className="hover:text-white transition-colors">Commercial Outdoor Care</a>
+                  <Link to="/commercial-outdoor" className="hover:text-white transition-colors">Commercial Outdoor Care</Link>
                 </li>
               </ul>
             </div>
@@ -1030,13 +1221,13 @@ function App() {
               <ul className="space-y-4">
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-gray-400" />
-                  <a href="tel:1300883623" className="hover:text-white transition-colors">1300 883 623</a>
+                  <Link to="tel:1300883623" className="hover:text-white transition-colors">1300 883 623</Link>
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-gray-400 mt-1" />
-                  <a href="mailto:customerservice@apexpropertysolutions.com.au" className="hover:text-white transition-colors break-all">
+                  <Link to="mailto:customerservice@apexpropertysolutions.com.au" className="hover:text-white transition-colors break-all">
                     customerservice@apexpropertysolutions.com.au
-                  </a>
+                  </Link>
                 </li>
                 <li className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-gray-400" />
@@ -1062,35 +1253,45 @@ function App() {
 
               {/* Social Media */}
               <div className="flex items-center gap-4">
-                <a 
-                  href="https://facebook.com" 
+                <Link 
+                  to="https://facebook.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   <Facebook className="w-5 h-5" />
-                </a>
-                <a 
-                  href="https://instagram.com" 
+                </Link>
+                <Link 
+                  to="https://instagram.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
-                </a>
-                <a 
-                  href="https://linkedin.com" 
+                </Link>
+                <Link 
+                  to="https://linkedin.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </footer>
+      <Routes>
+        <Route path="/*" element={
+          <>
+            <CleaningServices />
+            <OutdoorServices />
+          </>
+        } />
+      </Routes>
+
+      <About />
     </div>
   );
 }

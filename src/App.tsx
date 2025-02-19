@@ -37,6 +37,7 @@ import {
 import CleaningServices from './pages/CleaningServices';
 import OutdoorServices from './pages/OutdoorServices';
 import About from './pages/About';
+import Contact from './pages/Contact';
 
 function App() {
   // State for dropdowns and mobile menu
@@ -1287,11 +1288,11 @@ function App() {
           <>
             <CleaningServices />
             <OutdoorServices />
+            <About />
+            <Contact />
           </>
         } />
       </Routes>
-
-      <About />
     </div>
   );
 }
